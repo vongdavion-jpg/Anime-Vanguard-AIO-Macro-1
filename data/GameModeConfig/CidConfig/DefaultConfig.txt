@@ -1,0 +1,5 @@
+﻿Team=1
+Mount=1
+Timer=60
+Hardmode=0
+Stratergy=1

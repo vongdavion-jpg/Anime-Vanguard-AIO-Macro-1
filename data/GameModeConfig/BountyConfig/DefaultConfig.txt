@@ -1,0 +1,2 @@
+﻿Team=1
+DisableRedo=0

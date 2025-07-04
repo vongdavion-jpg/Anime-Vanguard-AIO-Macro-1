@@ -1,0 +1,3 @@
+﻿Team=1
+Portal=1
+WaitTime=20

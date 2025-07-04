@@ -1,0 +1,13 @@
+fullmoon=1
+flood=1
+snow=1
+rain=1
+tsukuyomi=1
+thunderstorm=1
+love=1
+sunshine=1
+blizzard=1
+windstorm=1
+rift=1
+heaven=1
+wave50=0

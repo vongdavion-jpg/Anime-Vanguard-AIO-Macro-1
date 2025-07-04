@@ -1,0 +1,7 @@
+﻿Daily=0
+Half=0
+Regular=0
+Bounty=0
+Repeatable=1
+CheckRoblox=0
+CheckAV=0

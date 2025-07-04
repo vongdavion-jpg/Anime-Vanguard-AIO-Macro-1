@@ -1,0 +1,5 @@
+﻿SkipSand=0
+SkipDD=0
+SkipGil=0
+SkipMartial=0
+SkipLoG=0

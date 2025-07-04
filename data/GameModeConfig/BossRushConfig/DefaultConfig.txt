@@ -1,0 +1,3 @@
+﻿Team=1
+SalterTimer=707
+DisableSalter=0

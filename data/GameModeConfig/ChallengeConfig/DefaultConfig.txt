@@ -1,0 +1,5 @@
+﻿Team=1
+Grind=1
+DisableRedo=0
+Cap=16
+DefaultCap=16
