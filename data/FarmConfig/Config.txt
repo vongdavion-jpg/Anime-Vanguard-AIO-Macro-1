@@ -1,7 +1,13 @@
 ﻿Daily=0
 Half=0
 Regular=0
+Rift=0
 Bounty=0
 Repeatable=1
+Repeatable2nd=1
 CheckRoblox=0
 CheckAV=0
+Swap=0
+Bot=1
+OCRMode=0
+Wifi=0
