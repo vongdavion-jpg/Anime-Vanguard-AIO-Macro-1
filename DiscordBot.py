@@ -1,7 +1,9 @@
+import time
 import discord
 from discord import  app_commands
 import os.path
-
+import os
+from datetime import datetime
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
@@ -12,6 +14,9 @@ UserIDFile = current_dir + "/data/Settings/DiscordUSERID.txt"
 signalFile = current_dir + "/Signal.txt"
 startpsFile = current_dir + "/Startps.txt"
 stopFile = current_dir + "/Stop.txt"
+checkFile = current_dir + "/Check.txt"
+
+
 
 if not (os.path.exists(tokenFile)):
     print("Couldn't get token")
@@ -111,8 +116,12 @@ else:
 intents = discord.Intents.default()
 intents.message_content = True 
 
-slash_commands = ["set [to setup your farm settings]", "startps [mostly for restart mango using private server]","mangosettings [Show your current farm settings]","stopmango [To stop Macro]"]
+slash_commands = ["set [to setup your farm settings]", "startps [mostly for restart mango using private server]","mangosettings [Show your current farm settings]","stopmango [To stop Macro]","checkmango [Send image of current state of mango]"]
 
+def get_time():
+    now = datetime.now()
+    current_time = now.strftime("[%H:%M:%S] ")
+    return current_time
 
 class DiscordConsole(discord.Client):
     def __init__(self):
@@ -126,9 +135,10 @@ class DiscordConsole(discord.Client):
     async def on_ready(self):
         print("----------- DISCORD BOT CONSOLE -----------")
         print(f"Login as {self.user}, here is some of the commands")
-        for i, command in enumerate(slash_commands):
-            print(f"{i+1}. /{command}")
-        print(f"The command will take few seconds to work.\nJoin https://www.discord.gg/salmon for more support")
+        commands = self.tree.get_commands() 
+        for i in commands:
+            print(f"/{i.name} → {i.description or "No description"}")
+        print(f"The command will take few seconds to work.\nJoin https://www.discord.gg/salmon for more support\n")
 
 bot = DiscordConsole()
 
@@ -168,9 +178,11 @@ async def set(
     ocr: app_commands.Choice[int] = None,
     wifi: int = None
 ):
+    print(get_time()+interaction.user.name + " use command /set")
     if  interaction.user.id != ui and ui != -1:
         await interaction.response.send_message("You are not one who run this mango.")
         return
+    
     try:
         data = get_list(FarmConfigFile)
         default = [0,1]
@@ -218,14 +230,22 @@ async def set(
 
 
 
-@bot.tree.command(name="startps", description = "Start private server")
+@bot.tree.command(name="startps", description = "Start private server to restart mango")
 async def startps(interaction: discord.Interaction):
+    print(get_time()+interaction.user.name + " use command /startps")
+    if  interaction.user.id != ui and ui != -1:
+        await interaction.response.send_message("You are not one who run this mango.")
+        return
     writeFile(startpsFile,"1")
     await interaction.response.send_message("Starting your private server!")
     
 
 @bot.tree.command(name="mangosettings", description = "Your current farm settingsr")
 async def mangosettings(interaction: discord.Interaction):
+    print(get_time()+interaction.user.name + " use command /mangosettings")
+    if  interaction.user.id != ui and ui != -1:
+        await interaction.response.send_message("You are not one who run this mango.")
+        return
     e = discord.Embed(
         title="Your current Settings",
         description=getstat(),
@@ -235,8 +255,38 @@ async def mangosettings(interaction: discord.Interaction):
 
 @bot.tree.command(name="stopmango", description = "Stop mango")
 async def stopmango(interaction: discord.Interaction):
+    print(get_time()+interaction.user.name + " use command /stopmango")
+    if  interaction.user.id != ui and ui != -1:
+        await interaction.response.send_message("You are not one who run this mango.")
+        return
     writeFile(stopFile,"1")
     await interaction.response.send_message("Stopping mango!")
+
+@bot.tree.command(name="checkmango", description = "Mango will send current view via webhook")
+async def checkmango(interaction: discord.Interaction):
+    print(get_time()+interaction.user.name + " use command /checkmango")
+    if  interaction.user.id != ui and ui != -1:
+        await interaction.response.send_message("You are not one who run this mango.")
+        return
+    writeFile(checkFile,"1")
+    await interaction.response.send_message("Mango sending webhook!")
+
+@bot.tree.command(name="shutdownpc", description = "Shutdown your pc")
+async def shutdownpc(interaction: discord.Interaction):
+    print(get_time()+interaction.user.name + " use command /shutdownpc")
+    if  interaction.user.id != ui and ui != -1:
+        await interaction.response.send_message("You are not one who run this mango.")
+        return
+    writeFile(stopFile,"1")
+    await interaction.response.send_message("Turning off mango and turning off pc in 10s")
+    time.sleep(5)
+    os.system("shutdown /s /t 5")
+    return
+
+@bot.tree.command(name="ping", description="Checks the bot's latency")
+async def ping(interaction: discord.Interaction):
+    print(get_time()+interaction.user.name + " use command /ping")
+    await interaction.response.send_message(f"Pong! ({round(bot.latency * 1000)}ms)")
 
 try:
     bot.run(DISCORDTOKEN)
