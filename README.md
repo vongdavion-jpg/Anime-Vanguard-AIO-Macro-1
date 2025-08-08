@@ -22,6 +22,8 @@ Anime Vanguards All-In-One is an automation program service that uses AutoHotkey
 2. Extract the [.zip](https://github.com/SalmonDXH/Anime-Vanguard-AIO-Macro/archive/refs/heads/main.zip) folder
 3. Run AV_AIO.exe
 
+![How to Download](https://media.discordapp.net/attachments/1374940397440204812/1403347619870146650/GMe7x9U.jpg?ex=689738d1&is=6895e751&hm=ef17c414c178eb3f16606fa588328e6e89a356651ad8c04d08edc11f78bb501d&=&format=webp&width=1489&height=813)
+
 **For Discord Bot:** 
 1. Install Python
 2. Run AV_AIO.exe
